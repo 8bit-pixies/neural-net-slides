@@ -153,15 +153,30 @@ context: on mat,    target: the
 ```
 Now we can perform some supervised learning!
 
-## 3. Building Word2Vec from Scratch (Attempt 1)
+## 3. Building Word2Vec from Scratch
 
-Ignoring everything I said previous about word2vec, we can do...a multinomial regression!
-
-Attempt 1 pseudo code
-
-Model using multinomial regression only
+With this frame work we can create a (shallow) neural network
 
 $$Pr(context | target word)$$ 
+
+## 3. From Word2Vec to FastText
+
+1.  Replace single words with "phrases" (ngrams)
+2.  We have a bag of ngrams
+3.  Repeat word2vec...
+
+...if supervised
+
+4.  Add layer for output
+
+## 4. CNN
+
+Architecture:
+
+1.  Add convolution filter (1 dimension)
+2.  Pooling? (yes/no)
+3.  Add dense layer to output
+
 
 
 
