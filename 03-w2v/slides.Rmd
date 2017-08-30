@@ -23,8 +23,8 @@ knitr::opts_chunk$set(echo = TRUE)
     *  Vectors?
 3.  Building Word2Vec from scratch
     *  Unsupervised Learning
-4.  Coming back to CNNs...FastText model
-    *  Transfer Learning?
+    *  Extensions to FastText (enriching word2vec and supervised learning)
+4.  Coming back to CNNs...
 
 ## 1. Motivation
 
@@ -77,7 +77,7 @@ that is a discussion for another day! -->
 
 ## 2. Understanding Word2Vec
 
-Bag of words/Topic models/word2vec all aim to convert: word(s) to numbers `==>` usefulness to a machine. 
+Bag of words/Topic models/word2vec all aim to convert: word(s) to numbers 
 
 *  Term frequency: word counts, can be normalised (TFIDF)
 *  Topic model: vector represents distribution of words, i.e. association to a particular topic (supervised or unsupervised)
@@ -111,8 +111,8 @@ Differences with other approaches:
 
 Word2Vec considers context of a word in its construction. The 2 approaches in "converting" the unsupervised problem to a supervised one:
 
-*  skip-gram: ` Pr(context|target word)`
-*  continuous bag of words (CBOW): ` Pr(target word|context)`
+*  skip-gram: $Pr(\text{context}|\text{target word})$
+*  continuous bag of words (CBOW): $Pr(\text{target word}|\text{context})$
 
 
 ## 3. Building Word2Vec from Scratch (Building Training Set)
@@ -157,28 +157,51 @@ Now we can perform some supervised learning!
 
 With this frame work we can create a (shallow) neural network
 
-$$Pr(context | target word)$$ 
+$$Pr(\text{context} | \text{target word})$$ 
 
 ## 3. From Word2Vec to FastText
 
-1.  Replace single words with "phrases" (ngrams)
-2.  We have a bag of ngrams
-3.  Repeat word2vec...
+Some downsides to word2vec:
 
-...if supervised
+*  Does not take into account neighbouring word information
+*  Cannot create word vectors for unseen vocabulary
 
-4.  Add layer for output
+FastText remediates both through use of _n_-grams, on both character and word level
 
-## 4. CNN
+## 3. From Word2Vec to FastText
 
-Architecture:
+*  Character _n_-gram, for word `where` and $n=3$
 
-1.  Add convolution filter (1 dimension)
-2.  Pooling? (yes/no)
-3.  Add dense layer to output
+```
+wh
+whe
+her
+ere
+re
+```
 
+*  Word-level _n_-gram: `cat sat on the mat`
 
+```
+cat sat
+cat sat on
+sat on the
+on the mat
+the mat
+```
 
+## 3. From Word2Vec to FastText for Classification
 
+To go from word2vec to classification problem:
 
+1. Take each **word** representation which are _averaged_ into a **text** representation
+2. Add another layer for prediction of classification problem
+
+## 4. Convolution Neural Networks for Text Models
+
+What is our "image"?
+
+$$\left[ w_1, w_2, ..., w_s \right]$$
+
+Where $w_i \in \mathbb{R}^n$ is a word vector with a vocabulary size $n$, and $s$ is max length of sentence.
 
